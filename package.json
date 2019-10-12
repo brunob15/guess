@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "bootstrap": "npm i && lerna bootstrap",
-    "build": "lerna run build",
+    "fill-guess-version": "ts-node infra/guess-version.ts",
+    "build": "npm run fill-guess-version && lerna run build",
     "publish": "lerna publish",
     "e2e": "ts-node infra/e2e.ts",
     "test": "ts-node infra/test.ts --watch",

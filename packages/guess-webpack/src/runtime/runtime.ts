@@ -1,6 +1,8 @@
 import { CompressedPrefetchGraph, CompressedGraphMap, PrefetchConfig } from '../declarations';
 import { guess, initialize as initializeGuess } from './guess';
 
+const guessVersion = '0.0.0';
+
 const support = (feature: string) => {
   if (typeof document === 'undefined') {
     return false;
@@ -54,6 +56,15 @@ const handleNavigationChange = (basePath: string, path: string) => {
   });
 };
 
+const setGuessVersionAttribute = () => {
+  const element = document.getElementsByTagName('body')[0]
+                  || document.getElementsByTagName('head')[0];
+
+  if (element) {
+    element.setAttribute('guess-version', guessVersion);
+  }
+};
+
 export const initialize = (
   global: any,
   history: History,
@@ -68,6 +79,8 @@ export const initialize = (
   if (global.constructor.name !== 'Window' || !global.location) {
     return;
   }
+
+  setGuessVersionAttribute();
 
   if (typeof global.addEventListener === 'function') {
     global.addEventListener('popstate', (e: any) =>
